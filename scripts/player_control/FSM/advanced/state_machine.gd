@@ -13,14 +13,15 @@ func _ready() -> void:
 	call_deferred("_state_default_start")
 
 func _state_default_start () -> void: 
-	current_state = default_state
-	_state_start()
+	if default_state:
+		current_state = default_state
+		_state_start()
+	else:
+		prints("No default state assigned to the StateMachine")	
 
 ## Function that prepare the variables for the new state and run their start method
 func _state_start() ->void :
-	prints(controlled_node)
 	prints("StateMachine", controlled_node.name, "start state", current_state.name)
-	## set the state
 	current_state.controlled_node = controlled_node
 	current_state.state_machine = self
 	current_state.start()

@@ -1,6 +1,5 @@
 extends CharacterBody2D
 #
-#
 #const SPEED = 100.0
 #const JUMP_VELOCITY = -300.0
 #
@@ -19,7 +18,6 @@ func _process(delta: float) -> void:
 	
 func play_animation(animation_name: String):
 	animated_sprite.play(animation_name)
-	
 
 #func _physics_process(delta: float) -> void:
 	## Add the gravity.

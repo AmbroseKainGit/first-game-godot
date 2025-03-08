@@ -1,8 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://7twkyvsn0yd3"]
+[gd_scene load_steps=29 format=3 uid="uid://7twkyvsn0yd3"]
 
-[ext_resource type="Script" path="res://scripts/player_control/FSM/advanced/state_machine.gd" id="1_4yys6"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_88eac"]
 [ext_resource type="Texture2D" uid="uid://cjj4sv1wi75hb" path="res://assets/sprites/knight.png" id="1_i1oec"]
-[ext_resource type="Script" path="res://scripts/player_control/FSM/advanced/base_state.gd" id="3_fowkd"]
+[ext_resource type="PackedScene" uid="uid://ckq7a0r8pv3m3" path="res://scripts/player_control/FSM/advanced/state_machine.tscn" id="3_n5j80"]
+[ext_resource type="Script" path="res://scripts/player_control/FSM/advanced/player_states/player_state_idle.gd" id="4_73lhk"]
+[ext_resource type="Script" path="res://scripts/player_control/FSM/advanced/player_states/player_state_running.gd" id="5_ielbk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ats08"]
 atlas = ExtResource("1_i1oec")
@@ -175,7 +177,7 @@ radius = 5.0
 [node name="Player" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 2
-script = ExtResource("1_4yys6")
+script = ExtResource("1_88eac")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -188,9 +190,13 @@ autoplay = "idle"
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_2qf1n")
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("default_state")]
-script = ExtResource("1_4yys6")
-default_state = NodePath("Node")
+[node name="StateMachine" parent="." node_paths=PackedStringArray("default_state") instance=ExtResource("3_n5j80")]
+default_state = NodePath("PlayerStateIdle")
 
-[node name="Node" type="Node" parent="StateMachine"]
-script = ExtResource("3_fowkd")
+[node name="PlayerStateIdle" type="Node" parent="StateMachine"]
+script = ExtResource("4_73lhk")
+
+[node name="PlayerStateRunning" type="Node" parent="StateMachine"]
+script = ExtResource("5_ielbk")
+
+[node name="PlayerStateJumping" type="Node" parent="StateMachine"]
