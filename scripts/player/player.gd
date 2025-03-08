@@ -4,22 +4,22 @@ extends CharacterBody2D
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animation_tree: AnimationTree = $AnimationTree
 
-#region Animations Dict
-var animation_mapping = {
-	"idle": "parameters/conditions/idle",
-	"run": "parameters/conditions/run",
-	"jump": "parameters/conditions/jump"
-}
-#endregion
-
 var anim_controller: AnimationController
 var movement_stats:CharacterMovementStats = CharacterMovementStats.new()
 var states:PlayerStatesNames = PlayerStatesNames.new()
 var animations:PlayerAnimationNames = PlayerAnimationNames.new()
 
+#region Animations Dict
+var animation_mapping = {
+	animations.IDLE: "parameters/conditions/idle",
+	animations.RUN: "parameters/conditions/run",
+	animations.JUMP: "parameters/conditions/jump",
+	animations.FALLING: "parameters/conditions/falling"
+}
+#endregion
+
 func _ready():
 	call_deferred("initialize_animations")
-
 	
 func initialize_animations():
 	# Initialize animation controller with all animations
