@@ -1,6 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://dx2senssfls8x"]
+[gd_scene load_steps=4 format=3 uid="uid://dx2senssfls8x"]
 
 [ext_resource type="Script" path="res://scripts/player/player_healthbar.gd" id="1_3h02r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xlfe0"]
+bg_color = Color(0.2, 0.2, 0.2, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_511ai"]
+bg_color = Color(0.2, 0.8, 0.2, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="HealthBar" type="Control"]
 layout_mode = 3
@@ -9,11 +23,14 @@ offset_right = 33.0
 offset_bottom = 10.0
 size_flags_horizontal = 3
 script = ExtResource("1_3h02r")
-bar_height = null
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 clip_contents = true
+custom_minimum_size = Vector2(0, 5)
 layout_mode = 0
 offset_right = 32.0
 offset_bottom = 4.0
+theme_override_styles/background = SubResource("StyleBoxFlat_xlfe0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_511ai")
+value = 100.0
 show_percentage = false

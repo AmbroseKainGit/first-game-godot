@@ -44,8 +44,7 @@ func play(animation_name: String):
 	#animation_tree["parameters/conditions/jump"] = active
 	#await get_tree().create_timer(.1).timeout
 	#animation_tree["parameters/conditions/jump"] = not active
-	#
-	#
+
 #func state_run(active: bool) -> void:
 	#animation_tree["parameters/conditions/run"] = active
 	#animation_tree["parameters/conditions/idle"] = not active		

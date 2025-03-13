@@ -692,8 +692,14 @@ offset_bottom = -40.0
 size_flags_horizontal = 3
 
 [node name="HealthBar" parent="HealthBarContainer" instance=ExtResource("16_pcv3p")]
-offset_left = -3.0
-offset_top = -1.0
-offset_right = 30.0
-offset_bottom = 7.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.757
+anchor_top = -3.296
+anchor_right = -1.757
+anchor_bottom = -3.296
+offset_left = -11.047
+offset_top = -7.04
+offset_right = 21.953
+offset_bottom = 0.960003
 bar_height = 8
