@@ -17,19 +17,8 @@ class_name HealthBar
 @onready var progress_bar: ProgressBar = $ProgressBar
 
 func _ready() -> void:
-	# Make sure the styles are created and applied
-	setup_progress_bar_styles()
-	
- 	# Position the health bar in the top-left corner
-	position_healthbar()
-	
 	# Connect to player when it's ready
 	call_deferred("find_and_connect_to_player")
-
-func position_healthbar() -> void:
-	# Position the health bar in the top-left corner with some margin
-	var margin = Vector2(100, 20)
-	global_position = margin
 
 func find_and_connect_to_player() -> void:
 	# Find the player in the scene
@@ -52,40 +41,6 @@ func setup_health_connections() -> void:
 	
 	# Update the initial values
 	_on_health_changed(health_stats.current_health, health_stats.max_health)
-
-# Create and apply the styles to the progress bar
-func setup_progress_bar_styles() -> void:
-	if progress_bar:
-		set_bar_color(bar_color)
-		set_background_color(background_color)
-		# Create fill style (the colored part of the bar)
-		#var fill_style = StyleBoxFlat.new()
-		#fill_style.bg_color = bar_color
-		#fill_style.corner_radius_top_left = 2
-		#fill_style.corner_radius_top_right = 2
-		#fill_style.corner_radius_bottom_left = 2
-		#fill_style.corner_radius_bottom_right = 2
-		#
-		## Create background style
-		#var bg_style = StyleBoxFlat.new()
-		#bg_style.bg_color = background_color
-		#bg_style.corner_radius_top_left = 2
-		#bg_style.corner_radius_top_right = 2
-		#bg_style.corner_radius_bottom_left = 2
-		#bg_style.corner_radius_bottom_right = 2
-		#
-		## Apply the styles
-		#progress_bar.add_theme_stylebox_override("fill", fill_style)
-		#progress_bar.add_theme_stylebox_override("background", bg_style)
-		#
-		## Set the ProgressBar properties
-		#progress_bar.min_value = 0
-		#progress_bar.max_value = 100
-		#progress_bar.value = 100
-		#progress_bar.show_percentage = false  # Hide percentage text
-		#
-		## Set the size of the progress bar
-		#progress_bar.custom_minimum_size.y = bar_height
 
 func set_bar_color(color: Color) -> void:
 	if is_instance_valid(progress_bar):
@@ -113,9 +68,7 @@ func _on_health_changed(new_health: float, max_health: float) -> void:
 	
 	# Change color based on health percentage
 	var health_percent = new_health / max_health
-	prints("health_percent", health_percent, "low_health_threshold", low_health_threshold)
 	if health_percent <= low_health_threshold:
 		set_bar_color(low_health_color)
 	else:
-		prints("SET COLOR TO", bar_color)
 		set_bar_color(bar_color)		

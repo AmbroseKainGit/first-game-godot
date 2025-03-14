@@ -353,8 +353,11 @@ theme_override_fonts/font = ExtResource("8_e6iql")
 theme_override_font_sizes/font_size = 8
 text = "You made it!"
 
-[node name="HealthBar" parent="." instance=ExtResource("10_vtaks")]
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" parent="UI" instance=ExtResource("10_vtaks")]
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 43.0
 offset_bottom = 20.0
+bar_height = 10
