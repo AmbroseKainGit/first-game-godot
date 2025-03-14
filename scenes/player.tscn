@@ -1,16 +1,16 @@
 [gd_scene load_steps=52 format=3 uid="uid://7twkyvsn0yd3"]
 
-[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_88eac"]
+[ext_resource type="Script" uid="uid://7vmjdr7qrc2e" path="res://scripts/player/player.gd" id="1_88eac"]
 [ext_resource type="AudioStream" uid="uid://bw35nsqj2fu8a" path="res://assets/sounds/explosion.wav" id="2_ir4nv"]
 [ext_resource type="PackedScene" uid="uid://ckq7a0r8pv3m3" path="res://scripts/player_control/FSM/advanced/state_machine.tscn" id="3_n5j80"]
-[ext_resource type="Script" path="res://scripts/player_control/FSM/advanced/player_states/player_state_idle.gd" id="4_73lhk"]
-[ext_resource type="Script" path="res://scripts/player_control/FSM/advanced/player_states/player_state_running.gd" id="5_ielbk"]
-[ext_resource type="Script" path="res://scripts/player_control/FSM/advanced/player_states/player_state_falling.gd" id="6_mngbp"]
-[ext_resource type="Script" path="res://scripts/player_control/FSM/advanced/player_states/player_state_jumping.gd" id="6_nyis8"]
+[ext_resource type="Script" uid="uid://fdp631e3ouyc" path="res://scripts/player_control/FSM/advanced/player_states/player_state_idle.gd" id="4_73lhk"]
+[ext_resource type="Script" uid="uid://cs6p4mh3h830j" path="res://scripts/player_control/FSM/advanced/player_states/player_state_running.gd" id="5_ielbk"]
+[ext_resource type="Script" uid="uid://bmdf7wt1qywvp" path="res://scripts/player_control/FSM/advanced/player_states/player_state_falling.gd" id="6_mngbp"]
+[ext_resource type="Script" uid="uid://60n23cag55k2" path="res://scripts/player_control/FSM/advanced/player_states/player_state_jumping.gd" id="6_nyis8"]
 [ext_resource type="Texture2D" uid="uid://cg66wg6c2gxdg" path="res://assets/sprites_new/_Idle.png" id="7_j4xg5"]
-[ext_resource type="Script" path="res://scripts/player_control/FSM/advanced/player_states/player_state_crouch.gd" id="7_q4kve"]
+[ext_resource type="Script" uid="uid://cd62vqbwfj5y8" path="res://scripts/player_control/FSM/advanced/player_states/player_state_crouch.gd" id="7_q4kve"]
 [ext_resource type="Texture2D" uid="uid://clhgioexankmr" path="res://assets/sprites_new/_Run.png" id="8_7eiis"]
-[ext_resource type="Script" path="res://scripts/player_control/FSM/advanced/player_states/player_state_attack.gd" id="8_dq6ah"]
+[ext_resource type="Script" uid="uid://dobnlhbffdpey" path="res://scripts/player_control/FSM/advanced/player_states/player_state_attack.gd" id="8_dq6ah"]
 [ext_resource type="Texture2D" uid="uid://de83mhbq2fecf" path="res://assets/sprites_new/_Fall.png" id="9_8e238"]
 [ext_resource type="Texture2D" uid="uid://bkax6xbjsmti3" path="res://assets/sprites_new/_Jump.png" id="9_8x50k"]
 [ext_resource type="Texture2D" uid="uid://c3kgxxj1ricym" path="res://assets/sprites_new/_Crouch.png" id="11_lsmol"]
@@ -485,13 +485,13 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_covt5"]
 _data = {
-"RESET": SubResource("Animation_jbr7l"),
-"attack": SubResource("Animation_lms2u"),
-"crouch": SubResource("Animation_f0umm"),
-"falling": SubResource("Animation_vv505"),
-"idle": SubResource("Animation_q7lcq"),
-"jump": SubResource("Animation_jb2br"),
-"run": SubResource("Animation_ch2vh")
+&"RESET": SubResource("Animation_jbr7l"),
+&"attack": SubResource("Animation_lms2u"),
+&"crouch": SubResource("Animation_f0umm"),
+&"falling": SubResource("Animation_vv505"),
+&"idle": SubResource("Animation_q7lcq"),
+&"jump": SubResource("Animation_jb2br"),
+&"run": SubResource("Animation_ch2vh")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xq0lw"]
@@ -652,7 +652,7 @@ script = ExtResource("8_dq6ah")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_covt5")
+&"": SubResource("AnimationLibrary_covt5")
 }
 autoplay = "idle"
 
@@ -696,10 +696,10 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = -1.757
 anchor_top = -3.296
-anchor_right = -1.757
+anchor_right = -1.569
 anchor_bottom = -3.296
-offset_left = -11.047
-offset_top = -7.04
-offset_right = 21.953
-offset_bottom = 0.960003
+offset_left = 48.953
+offset_top = 32.96
+offset_right = 76.501
+offset_bottom = 40.96
 bar_height = 8

@@ -24,17 +24,15 @@
 #func set_bar_color(color: Color) -> void:
 	#bar_color = color
 	#if is_instance_valid(progress_bar):
-		## This assumes you're using a StyleBoxFlat for the progress bar
-		#var style = progress_bar.get("theme_override_styles/fill")
-		#if style:
+		#var style = progress_bar.get_theme_stylebox("fill")
+		#if style is StyleBoxFlat:
 			#style.bg_color = color
 #
 #func set_background_color(color: Color) -> void:
 	#background_color = color
 	#if is_instance_valid(progress_bar):
-		## This assumes you're using a StyleBoxFlat for the background
-		#var style = progress_bar.get("theme_override_styles/background")
-		#if style:
+		#var style = progress_bar.get_theme_stylebox("background")
+		#if style is StyleBoxFlat:
 			#style.bg_color = color
 #
 #func set_low_health_color(color: Color) -> void:
@@ -96,48 +94,52 @@ func setup_health_connections() -> void:
 # Create and apply the styles to the progress bar
 func setup_progress_bar_styles() -> void:
 	if progress_bar:
+		set_bar_color(bar_color)
+		set_background_color(background_color)
 		# Create fill style (the colored part of the bar)
-		var fill_style = StyleBoxFlat.new()
-		fill_style.bg_color = bar_color
-		fill_style.corner_radius_top_left = 2
-		fill_style.corner_radius_top_right = 2
-		fill_style.corner_radius_bottom_left = 2
-		fill_style.corner_radius_bottom_right = 2
-		
-		# Create background style
-		var bg_style = StyleBoxFlat.new()
-		bg_style.bg_color = background_color
-		bg_style.corner_radius_top_left = 2
-		bg_style.corner_radius_top_right = 2
-		bg_style.corner_radius_bottom_left = 2
-		bg_style.corner_radius_bottom_right = 2
-		
-		# Apply the styles
-		progress_bar.add_theme_stylebox_override("fill", fill_style)
-		progress_bar.add_theme_stylebox_override("background", bg_style)
-		
-		# Set the ProgressBar properties
-		progress_bar.min_value = 0
-		progress_bar.max_value = 100
-		progress_bar.value = 100
-		progress_bar.show_percentage = false  # Hide percentage text
-		
-		# Set the size of the progress bar
-		progress_bar.custom_minimum_size.y = bar_height
+		#var fill_style = StyleBoxFlat.new()
+		#fill_style.bg_color = bar_color
+		#fill_style.corner_radius_top_left = 2
+		#fill_style.corner_radius_top_right = 2
+		#fill_style.corner_radius_bottom_left = 2
+		#fill_style.corner_radius_bottom_right = 2
+		#
+		## Create background style
+		#var bg_style = StyleBoxFlat.new()
+		#bg_style.bg_color = background_color
+		#bg_style.corner_radius_top_left = 2
+		#bg_style.corner_radius_top_right = 2
+		#bg_style.corner_radius_bottom_left = 2
+		#bg_style.corner_radius_bottom_right = 2
+		#
+		## Apply the styles
+		#progress_bar.add_theme_stylebox_override("fill", fill_style)
+		#progress_bar.add_theme_stylebox_override("background", bg_style)
+		#
+		## Set the ProgressBar properties
+		#progress_bar.min_value = 0
+		#progress_bar.max_value = 100
+		#progress_bar.value = 100
+		#progress_bar.show_percentage = false  # Hide percentage text
+		#
+		## Set the size of the progress bar
+		#progress_bar.custom_minimum_size.y = bar_height
 
 func set_bar_color(color: Color) -> void:
-	bar_color = color
 	if is_instance_valid(progress_bar):
-		var style = progress_bar.get_theme_stylebox("fill")
-		if style is StyleBoxFlat:
+		# This assumes you're using a StyleBoxFlat for the progress bar
+		var style = progress_bar.get("theme_override_styles/fill")
+		if style:
 			style.bg_color = color
 
 func set_background_color(color: Color) -> void:
 	background_color = color
 	if is_instance_valid(progress_bar):
-		var style = progress_bar.get_theme_stylebox("background")
-		if style is StyleBoxFlat:
+		# This assumes you're using a StyleBoxFlat for the background
+		var style = progress_bar.get("theme_override_styles/background")
+		if style:
 			style.bg_color = color
+
 
 func set_low_health_color(color: Color) -> void:
 	low_health_color = color
@@ -149,7 +151,9 @@ func _on_health_changed(new_health: float, max_health: float) -> void:
 	
 	# Change color based on health percentage
 	var health_percent = new_health / max_health
+	prints("health_percent", health_percent, "low_health_threshold", low_health_threshold)
 	if health_percent <= low_health_threshold:
 		set_bar_color(low_health_color)
 	else:
+		prints("SET COLOR TO", bar_color)
 		set_bar_color(bar_color)		
