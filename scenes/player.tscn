@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://7twkyvsn0yd3"]
+[gd_scene load_steps=51 format=3 uid="uid://7twkyvsn0yd3"]
 
 [ext_resource type="Script" uid="uid://7vmjdr7qrc2e" path="res://scripts/player/player.gd" id="1_88eac"]
 [ext_resource type="AudioStream" uid="uid://bw35nsqj2fu8a" path="res://assets/sounds/explosion.wav" id="2_ir4nv"]
@@ -15,7 +15,6 @@
 [ext_resource type="Texture2D" uid="uid://bkax6xbjsmti3" path="res://assets/sprites_new/_Jump.png" id="9_8x50k"]
 [ext_resource type="Texture2D" uid="uid://c3kgxxj1ricym" path="res://assets/sprites_new/_Crouch.png" id="11_lsmol"]
 [ext_resource type="Texture2D" uid="uid://dfojm6nsmgf5b" path="res://assets/sprites_new/_AttackNoMovement.png" id="14_6dy2v"]
-[ext_resource type="PackedScene" uid="uid://dx2senssfls8x" path="res://scenes/health_bar.tscn" id="16_pcv3p"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eg17d"]
 radius = 7.0
@@ -681,25 +680,3 @@ visible = false
 position = Vector2(10, -40)
 texture = ExtResource("14_6dy2v")
 hframes = 4
-
-[node name="HealthBarContainer" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = -12.0
-offset_top = -50.0
-offset_right = 17.0
-offset_bottom = -40.0
-size_flags_horizontal = 3
-
-[node name="HealthBar" parent="HealthBarContainer" instance=ExtResource("16_pcv3p")]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -1.757
-anchor_top = -3.296
-anchor_right = -1.569
-anchor_bottom = -3.296
-offset_left = 48.953
-offset_top = 32.96
-offset_right = 76.501
-offset_bottom = 40.96
-bar_height = 8

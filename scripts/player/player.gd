@@ -5,7 +5,6 @@ extends CharacterBody2D
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var crouched_sprite: Sprite2D = $CrouchedSprite
 @onready var basic_attack_sprite: Sprite2D = $BasicAttackSprite
-@onready var health_bar: HealthBar = $HealthBarContainer/HealthBar
 
 var coyote_time = 0.2
 var coyote_timer = 0.0
@@ -31,6 +30,9 @@ var animation_mapping = {
 #endregion
 
 func _ready():
+	# Add the player to a group so the health bar can find it
+	add_to_group("player")
+	
 	# Initialize health system first
 	initialize_health()
 	
@@ -55,23 +57,15 @@ func initialize_animations():
 	anim_controller.register_animations(animation_mapping)
 	add_child(anim_controller)
 
+func get_health_stats() -> CharacterHealthStats:
+	return health_stats
+
 func initialize_health():
 	# Initialize health system with custom values
 	health_stats.max_health = 100.0
 	health_stats.current_health = 100.0
 	health_stats.regeneration_rate = 0.0  # Set to a value > 0 for passive health regen
 	health_stats.initialize()
-	
-	# Connect signals
-	#health_stats.health_depleted.connect(_on_health_depleted)
-	
-	# Set the health_stats reference in the health bar
-	if health_bar:
-		print("Setting health_stats in health_bar")
-		health_bar.health_stats = health_stats
-		
-		if health_bar.has_method("setup_health_connections"):
-			health_bar.setup_health_connections()	
 
 func set_facting_direction(x:float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
