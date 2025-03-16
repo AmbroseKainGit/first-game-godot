@@ -610,7 +610,7 @@ states/jump/position = Vector2(311, 32)
 states/run/node = SubResource("AnimationNodeAnimation_uou32")
 states/run/position = Vector2(588, 226)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_8rgm5"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_p854u"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_6ydti"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_md3yd"), "run", "jump", SubResource("AnimationNodeStateMachineTransition_gkw71"), "jump", "falling", SubResource("AnimationNodeStateMachineTransition_3p53d"), "falling", "run", SubResource("AnimationNodeStateMachineTransition_qfc12"), "falling", "idle", SubResource("AnimationNodeStateMachineTransition_2xelq"), "idle", "crouch", SubResource("AnimationNodeStateMachineTransition_ay3q1"), "run", "crouch", SubResource("AnimationNodeStateMachineTransition_15sjb"), "crouch", "idle", SubResource("AnimationNodeStateMachineTransition_i0raq"), "crouch", "run", SubResource("AnimationNodeStateMachineTransition_ihfiq"), "idle", "falling", SubResource("AnimationNodeStateMachineTransition_dbr2m"), "run", "falling", SubResource("AnimationNodeStateMachineTransition_26l6y"), "falling", "jump", SubResource("AnimationNodeStateMachineTransition_8ht3u"), "run", "attack", SubResource("AnimationNodeStateMachineTransition_ab4l2"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_8smb3"), "attack", "run", SubResource("AnimationNodeStateMachineTransition_5fbfq"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_gsgct")]
-graph_offset = Vector2(-253.175, -114.978)
+graph_offset = Vector2(-180.175, 1.83077)
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 5

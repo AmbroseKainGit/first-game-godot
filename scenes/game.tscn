@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://c5ce53co4s1ua"]
+[gd_scene load_steps=18 format=4 uid="uid://c5ce53co4s1ua"]
 
 [ext_resource type="Script" uid="uid://yqqx8ouffwok" path="res://scripts/game_manager.gd" id="1_ktxps"]
 [ext_resource type="PackedScene" uid="uid://7twkyvsn0yd3" path="res://scenes/player.tscn" id="1_udo0n"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cj1jpeeoyw136" path="res://scenes/slime.tscn" id="6_wocup"]
 [ext_resource type="FontFile" uid="uid://dtiecsj253twq" path="res://assets/fonts/PixelOperator8.ttf" id="8_e6iql"]
 [ext_resource type="PackedScene" uid="uid://dx2senssfls8x" path="res://scenes/health_bar.tscn" id="10_vtaks"]
+[ext_resource type="PackedScene" uid="uid://dxmxvfjr5d3jk" path="res://scenes/worm_enemy.tscn" id="11_kvpfn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jrph8"]
 texture = ExtResource("2_vbkqj")
@@ -361,3 +362,6 @@ offset_top = 10.0
 offset_right = 43.0
 offset_bottom = 20.0
 bar_height = 10
+
+[node name="WormEnemy" parent="." instance=ExtResource("11_kvpfn")]
+position = Vector2(179, -106)
