@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://dxmxvfjr5d3jk"]
+[gd_scene load_steps=40 format=3 uid="uid://dxmxvfjr5d3jk"]
 
 [ext_resource type="Texture2D" uid="uid://b1h1g1qrelpct" path="res://assets/sprites_new/worm_enemy/Worm/Idle.png" id="1_rksn3"]
 [ext_resource type="Script" uid="uid://dp7jnimqrb8r8" path="res://scripts/enemies/worm/worm.gd" id="1_w402h"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://nqtdnj62nj0i" path="res://assets/sprites_new/worm_enemy/Worm/Death.png" id="5_w2agj"]
 [ext_resource type="Script" uid="uid://b53hv0hwflp60" path="res://scripts/player_control/FSM/advanced/state_machine.gd" id="7_8il23"]
 [ext_resource type="Script" uid="uid://dbq40sg80ykys" path="res://scripts/enemies/worm/worm_control/worm_states/worm_state_idle.gd" id="8_oqh25"]
+[ext_resource type="Script" uid="uid://cu5gbp07tguyv" path="res://scripts/enemies/worm/worm_control/worm_states/worm_state_patrol.gd" id="9_w2agj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8il23"]
 radius = 5.0
@@ -676,6 +677,9 @@ default_state = NodePath("WormEnemyStateIdle")
 
 [node name="WormEnemyStateIdle" type="Node" parent="StateMachine"]
 script = ExtResource("8_oqh25")
+
+[node name="WormEnemyStatePatrol" type="Node" parent="StateMachine"]
+script = ExtResource("9_w2agj")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_sqcbj")
