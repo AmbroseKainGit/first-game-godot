@@ -1,12 +1,16 @@
 extends WormStateGravityBase
 var timer = 0.0
-var idle_time = 3.0
+var idle_time = 0
 var animation_started = false
 
 func start():
 	super.start()
+	timer = 0.0
 	worm.change_sprite_visibility("SpriteIdle")
+	idle_time = randi_range(2, 6)
 	animation_started = false
+	# Mantener la misma orientación del sprite
+	worm.sprite.flip_h = (worm.facing_direction < 0)
 	
 func physics_update(delta: float):
 	super.physics_update(delta)

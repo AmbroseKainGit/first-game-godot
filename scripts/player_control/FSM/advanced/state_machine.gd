@@ -21,7 +21,8 @@ func _state_default_start () -> void:
 
 ## Function that prepare the variables for the new state and run their start method
 func _state_start() ->void :
-	prints("StateMachine", controlled_node.name, "start state", current_state.name)
+	if controlled_node.name != 'Player':
+		prints("StateMachine", controlled_node.name, "start state", current_state.name)
 	current_state.controlled_node = controlled_node
 	current_state.state_machine = self
 	current_state.start()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dxmxvfjr5d3jk"]
+[gd_scene load_steps=42 format=3 uid="uid://dxmxvfjr5d3jk"]
 
 [ext_resource type="Texture2D" uid="uid://b1h1g1qrelpct" path="res://assets/sprites_new/worm_enemy/Worm/Idle.png" id="1_rksn3"]
 [ext_resource type="Script" uid="uid://dp7jnimqrb8r8" path="res://scripts/enemies/worm/worm.gd" id="1_w402h"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://b53hv0hwflp60" path="res://scripts/player_control/FSM/advanced/state_machine.gd" id="7_8il23"]
 [ext_resource type="Script" uid="uid://dbq40sg80ykys" path="res://scripts/enemies/worm/worm_control/worm_states/worm_state_idle.gd" id="8_oqh25"]
 [ext_resource type="Script" uid="uid://cu5gbp07tguyv" path="res://scripts/enemies/worm/worm_control/worm_states/worm_state_patrol.gd" id="9_w2agj"]
+[ext_resource type="Script" uid="uid://bc0w84ghvbldm" path="res://scripts/enemies/worm/worm_control/worm_states/worm_state_attack.gd" id="10_vr3fy"]
+[ext_resource type="Script" uid="uid://ceg6rjl23bkql" path="res://scripts/enemies/worm/worm_control/worm_states/worm_state_chase.gd" id="11_0mtc6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8il23"]
 radius = 5.0
@@ -17,6 +19,7 @@ height = 30.0277
 [sub_resource type="Animation" id="Animation_gdrff"]
 resource_name = "Attack"
 length = 0.8
+loop_mode = 1
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -642,11 +645,11 @@ rotation = -1.55509
 shape = SubResource("CapsuleShape2D_8il23")
 
 [node name="SpriteIdle" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("1_rksn3")
 hframes = 9
 
 [node name="SpriteWalk" type="Sprite2D" parent="."]
-visible = false
 texture = ExtResource("2_w402h")
 hframes = 9
 
@@ -680,6 +683,12 @@ script = ExtResource("8_oqh25")
 
 [node name="WormEnemyStatePatrol" type="Node" parent="StateMachine"]
 script = ExtResource("9_w2agj")
+
+[node name="WormEnemyStateAttack" type="Node" parent="StateMachine"]
+script = ExtResource("10_vr3fy")
+
+[node name="WormEnemyStateChase" type="Node" parent="StateMachine"]
+script = ExtResource("11_0mtc6")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_sqcbj")
