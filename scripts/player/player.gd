@@ -11,6 +11,8 @@ var coyote_time = 0.2
 var coyote_timer = 0.0
 var was_on_floor = false
 var has_jumped = false  # Add this new variable
+var locked_direction: float = 1.0  # Guarda la última dirección antes de rodar
+var is_rolling: bool = false       # Indica si el personaje está rodando
 
 var health_stats: CharacterHealthStats = CharacterHealthStats.new()
 var anim_controller: AnimationController
@@ -77,16 +79,18 @@ func initialize_health():
 
 func set_facting_direction(x:float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
-	if direction > 0:
-		sprite.scale.x = 1
-		crouched_sprite.scale.x = 1
-		basic_attack_sprite.scale.x = 1
-		roll_sprite.scale.x = 1
-	elif direction < 0:
-		sprite.scale.x = -1
-		crouched_sprite.scale.x = -1
-		basic_attack_sprite.scale.x = -1
-		roll_sprite.scale.x = -1
+	# If rolling, direction is locked
+	if is_rolling:
+		sprite.scale.x = locked_direction
+		crouched_sprite.scale.x = locked_direction
+		basic_attack_sprite.scale.x = locked_direction
+		roll_sprite.scale.x = locked_direction
+	elif direction != 0:
+		locked_direction = sign(direction)  # Store direction when isn't rolling
+		sprite.scale.x = locked_direction
+		crouched_sprite.scale.x = locked_direction
+		basic_attack_sprite.scale.x = locked_direction
+		roll_sprite.scale.x = locked_direction
 
 func update_coyote_time(delta: float) ->void:
 	# Update was_on_floor at the beginning of physics processing

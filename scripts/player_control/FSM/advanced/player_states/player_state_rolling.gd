@@ -10,6 +10,7 @@ func _init():
 	timer.timeout.connect(_on_roll_finished)
 	
 func start():
+	player.is_rolling = true
 	# Set up the attack visuals
 	player.change_visibility_roll(true)
 	player.play_animation(player.animations.ROLL)
@@ -27,6 +28,10 @@ func _on_roll_finished():
 func physics_update(delta: float):
 	pass
 
+func on_input(event):
+	pass
+
 func end():
+	player.is_rolling = false
 	timer.stop()
 	player.change_visibility_roll(false)
