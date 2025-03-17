@@ -15,6 +15,6 @@ func on_input(event):
 	elif Input.is_action_pressed("ui_down"): 
 		state_machine.change_to(player.states.Crouching)
 	elif Input.is_action_just_pressed("attack"):
-		state_machine.change_to(player.states.Attacking)	
-		
-	
+		state_machine.change_to(player.states.Attacking)
+	elif Input.is_action_just_pressed("roll"):
+		state_machine.change_to(player.states.Rolling)

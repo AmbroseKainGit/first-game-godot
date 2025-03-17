@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var crouched_sprite: Sprite2D = $CrouchedSprite
 @onready var basic_attack_sprite: Sprite2D = $BasicAttackSprite
+@onready var roll_sprite: Sprite2D = $RollSprite
 
 var coyote_time = 0.2
 var coyote_timer = 0.0
@@ -25,7 +26,8 @@ var animation_mapping = {
 	animations.JUMP: "parameters/conditions/jump",
 	animations.FALLING: "parameters/conditions/falling",
 	animations.CROUCH: "parameters/conditions/crouch",
-	animations.ATTACK: "parameters/conditions/attack"
+	animations.ATTACK: "parameters/conditions/attack",
+	animations.ROLL: "parameters/conditions/roll"
 }
 #endregion
 
@@ -37,8 +39,14 @@ func _ready():
 	initialize_health()
 	
 	call_deferred("initialize_animations")
-
 	
+func change_visibility_roll(state: bool):
+	# Toggle visibility
+	roll_sprite.visible = state
+	sprite.visible = !state
+	basic_attack_sprite.visible = false
+	crouched_sprite.visible = false
+
 func change_visibility_crouch(state: bool):
 	# Toggle visibility
 	crouched_sprite.visible = state
@@ -73,10 +81,12 @@ func set_facting_direction(x:float) -> void:
 		sprite.scale.x = 1
 		crouched_sprite.scale.x = 1
 		basic_attack_sprite.scale.x = 1
+		roll_sprite.scale.x = 1
 	elif direction < 0:
 		sprite.scale.x = -1
 		crouched_sprite.scale.x = -1
 		basic_attack_sprite.scale.x = -1
+		roll_sprite.scale.x = -1
 
 func update_coyote_time(delta: float) ->void:
 	# Update was_on_floor at the beginning of physics processing

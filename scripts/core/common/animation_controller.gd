@@ -35,7 +35,7 @@ func play(animation_name: String):
 		animation_tree[animation_states[animation_name]] = true
 	else:
 		push_warning("Animation not found: " + animation_name)
-		
+
 #func state_idle(active: bool) -> void:
 	#animation_tree["parameters/conditions/idle"] = active
 	#animation_tree["parameters/conditions/run"] = not active

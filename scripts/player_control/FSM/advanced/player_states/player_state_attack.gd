@@ -57,4 +57,4 @@ func on_input(event):
 func end():
 	# Clean up when leaving this state
 	timer.stop()
-	player.change_visibility_attack(false)	
+	player.change_visibility_attack(false)
