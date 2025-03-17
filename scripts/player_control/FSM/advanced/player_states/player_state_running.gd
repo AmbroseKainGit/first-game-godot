@@ -2,8 +2,10 @@ extends PlayerStateGravityBase
 
 const SPEED = 100.0
 
+func start():
+	player.change_sprite_visibility(player.animations.IDLE)
+
 func physics_update(delta: float): 
-	player.change_visibility_crouch(false)
 	player.play_animation(player.animations.RUN)
 	player.velocity.x = Input.get_axis("move_left", "move_right") * player.movement_stats.SPEED
 	if not player.is_on_floor() and player.velocity.y > 0:

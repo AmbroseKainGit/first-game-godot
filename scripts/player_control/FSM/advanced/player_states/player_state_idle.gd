@@ -1,7 +1,9 @@
 extends PlayerStateGravityBase
 
+func start():
+	player.change_sprite_visibility(player.animations.IDLE)
+
 func physics_update(delta: float): 
-	player.change_visibility_crouch(false)
 	player.play_animation(player.animations.IDLE)
 	player.velocity.x = 0
 	if not player.is_on_floor() and player.velocity.y > 0:

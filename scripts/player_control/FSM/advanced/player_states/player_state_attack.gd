@@ -11,7 +11,7 @@ func _init():
 
 func start():
 	# Set up the attack visuals
-	player.change_visibility_attack(true)
+	player.change_sprite_visibility(player.animations.ATTACK)
 	player.play_animation(player.animations.ATTACK)
 	
 	# Start the timer for attack duration
