@@ -40,17 +40,23 @@ func chase(delta, player):
 	# Actualizar temporizador
 	timer += delta
 	
-	# Determinar la dirección hacia el jugador
-	var chase_direction = 1 if player.global_position.x > worm.global_position.x else -1
+	# Obtener la diferencia horizontal entre jugador y enemigo
+	var x_diff = player.global_position.x - worm.global_position.x
 	
-	# Actualizar la dirección del enemigo
-	worm.facing_direction = chase_direction
-	worm.sprite_walk.flip_h = (chase_direction < 0)
+	# Solo cambiar de dirección si el jugador está fuera de la zona muerta
+	if abs(x_diff) > 20:
+		# Determinar la dirección hacia el jugador
+		var chase_direction = 1 if x_diff > 0 else -1
+		
+		# Actualizar la dirección del enemigo solo si es diferente
+		if chase_direction != worm.facing_direction:
+			worm.facing_direction = chase_direction
+			worm.sprite_walk.flip_h = (chase_direction < 0)
 	
 	# Verificar si hay suelo en la dirección de persecución
-	if worm.check_floor_ahead(chase_direction):
+	if worm.check_floor_ahead(worm.facing_direction):
 		# Mover al enemigo hacia el jugador
-		worm.velocity.x = chase_direction * chase_speed
+		worm.velocity.x = worm.facing_direction * chase_speed
 	else:
 		# Si no hay suelo, detenerse
 		worm.velocity.x = 0

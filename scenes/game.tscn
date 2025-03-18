@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cj1jpeeoyw136" path="res://scenes/slime.tscn" id="6_wocup"]
 [ext_resource type="FontFile" uid="uid://dtiecsj253twq" path="res://assets/fonts/PixelOperator8.ttf" id="8_e6iql"]
 [ext_resource type="PackedScene" uid="uid://dx2senssfls8x" path="res://scenes/health_bar.tscn" id="10_vtaks"]
-[ext_resource type="PackedScene" uid="uid://dxmxvfjr5d3jk" path="res://scenes/worm_enemy.tscn" id="11_kvpfn"]
+[ext_resource type="PackedScene" uid="uid://beiolo7ev55wg" path="res://scenes/worm_enemy.tscn" id="11_kvpfn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jrph8"]
 texture = ExtResource("2_vbkqj")

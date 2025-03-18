@@ -2,6 +2,8 @@ extends WormStateGravityBase
 var animation_started = false
 var attack_duration = 0.8  # Duración de la animación de ataque
 var timer = 0.0
+var attack_range = 40.0
+var vision_range = 150.0
 
 func start():
 	super.start()
@@ -25,7 +27,7 @@ func end():
 	
 	# Llamar al método de la clase base
 	super.end()
-
+	
 func physics_update(delta: float): 
 	super.physics_update(delta)
 	
@@ -40,9 +42,21 @@ func physics_update(delta: float):
 	# Controlar el tiempo del ataque
 	timer += delta
 	if timer >= attack_duration:
-		# Volver a estado de patrulla cuando termine el ataque
+		# Reiniciar bandera de animación
 		animation_started = false
-		state_machine.change_to("WormEnemyStatePatrol")
+		
+		# Comprobar si hay jugador cerca y decidir a qué estado ir
+		var player = detect_player()
+		if player:
+			if is_in_attack_range(player):
+				# Si está en rango de ataque, atacar de nuevo
+				state_machine.change_to(worm.states.Attack)
+			else:
+				# Si está en visión pero fuera de rango de ataque, perseguir
+				state_machine.change_to(worm.states.Chase)
+		else:
+			# Si no hay jugador cerca, volver a patrullar
+			state_machine.change_to(worm.states.Patrol)
 		
 func detect_player(detection_range: float = 150.0):
 	# Buscar al jugador en el grupo "player"
@@ -53,8 +67,8 @@ func detect_player(detection_range: float = 150.0):
 		if distance < detection_range:
 			return player
 	return null
-
-func is_in_attack_range(player, attack_range: float = 40.0):
+	
+func is_in_attack_range(player):
 	if player:
 		var distance = worm.global_position.distance_to(player.global_position)
 		return distance < attack_range

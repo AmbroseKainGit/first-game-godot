@@ -1,14 +1,16 @@
-[gd_scene load_steps=40 format=3 uid="uid://beiolo7ev55wg"]
+[gd_scene load_steps=45 format=3 uid="uid://beiolo7ev55wg"]
 
-[ext_resource type="Texture2D" path="res://assets/sprites_new/worm_enemy/Worm/Idle.png" id="1_rksn3"]
-[ext_resource type="Script" path="res://scripts/enemies/worm/worm.gd" id="1_w402h"]
-[ext_resource type="Texture2D" path="res://assets/sprites_new/worm_enemy/Worm/Walk.png" id="2_w402h"]
-[ext_resource type="Texture2D" path="res://assets/sprites_new/worm_enemy/Worm/Attack.png" id="3_8il23"]
-[ext_resource type="Texture2D" path="res://assets/sprites_new/worm_enemy/Worm/Get Hit.png" id="4_oqh25"]
-[ext_resource type="Texture2D" path="res://assets/sprites_new/worm_enemy/Worm/Death.png" id="5_w2agj"]
+[ext_resource type="Texture2D" uid="uid://b1h1g1qrelpct" path="res://assets/sprites_new/worm_enemy/Worm/Idle.png" id="1_rksn3"]
+[ext_resource type="Script" uid="uid://dp7jnimqrb8r8" path="res://scripts/enemies/worm/worm.gd" id="1_w402h"]
+[ext_resource type="Texture2D" uid="uid://b8u8fd1bgkkae" path="res://assets/sprites_new/worm_enemy/Worm/Walk.png" id="2_w402h"]
+[ext_resource type="Texture2D" uid="uid://ciix1hwf8v80g" path="res://assets/sprites_new/worm_enemy/Worm/Attack.png" id="3_8il23"]
+[ext_resource type="Texture2D" uid="uid://d3ufhu3s7wre1" path="res://assets/sprites_new/worm_enemy/Worm/Get Hit.png" id="4_oqh25"]
+[ext_resource type="Texture2D" uid="uid://nqtdnj62nj0i" path="res://assets/sprites_new/worm_enemy/Worm/Death.png" id="5_w2agj"]
 [ext_resource type="Script" uid="uid://b53hv0hwflp60" path="res://scripts/player_control/FSM/advanced/state_machine.gd" id="7_8il23"]
-[ext_resource type="Script" path="res://scripts/enemies/worm/worm_control/worm_states/worm_state_idle.gd" id="8_oqh25"]
-[ext_resource type="Script" path="res://scripts/enemies/worm/worm_control/worm_states/worm_state_patrol.gd" id="9_w2agj"]
+[ext_resource type="Script" uid="uid://dbq40sg80ykys" path="res://scripts/enemies/worm/worm_control/worm_states/worm_state_idle.gd" id="8_oqh25"]
+[ext_resource type="Script" uid="uid://cu5gbp07tguyv" path="res://scripts/enemies/worm/worm_control/worm_states/worm_state_patrol.gd" id="9_w2agj"]
+[ext_resource type="Script" uid="uid://ceg6rjl23bkql" path="res://scripts/enemies/worm/worm_control/worm_states/worm_state_chase.gd" id="10_0mtc6"]
+[ext_resource type="Script" uid="uid://bc0w84ghvbldm" path="res://scripts/enemies/worm/worm_control/worm_states/worm_state_attack.gd" id="11_xyue4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8il23"]
 radius = 5.0
@@ -534,6 +536,9 @@ _data = {
 &"Walk": SubResource("Animation_xyue4")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xyue4"]
+animation = &"Attack"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8il23"]
 animation = &"Attack"
 
@@ -617,9 +622,21 @@ switch_mode = 2
 advance_mode = 2
 advance_condition = &"Idle"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sqcbj"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"Attack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2k0fv"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"Attack"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_sqcbj"]
 states/Attack/node = SubResource("AnimationNodeAnimation_8il23")
 states/Attack/position = Vector2(334, 65)
+"states/Attack 2/node" = SubResource("AnimationNodeAnimation_xyue4")
+"states/Attack 2/position" = Vector2(435, -9.9949)
 states/Death/node = SubResource("AnimationNodeAnimation_oqh25")
 states/Death/position = Vector2(920, 200)
 states/End/position = Vector2(959, 362)
@@ -630,7 +647,7 @@ states/Idle/position = Vector2(298, 253)
 states/Start/position = Vector2(146, 253)
 states/Walk/node = SubResource("AnimationNodeAnimation_0mtc6")
 states/Walk/position = Vector2(472, 176)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_xyue4"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_gdrff"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_34xf7"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_xu3rm"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_ymxus"), "Idle", "Gethit", SubResource("AnimationNodeStateMachineTransition_e11s8"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_voaoi"), "Gethit", "Death", SubResource("AnimationNodeStateMachineTransition_ahb05"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_ednpx"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_5crpc"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_2mefs"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_8hucx"), "Walk", "Gethit", SubResource("AnimationNodeStateMachineTransition_eoevc"), "Gethit", "Attack", SubResource("AnimationNodeStateMachineTransition_ecvva"), "Attack", "Gethit", SubResource("AnimationNodeStateMachineTransition_8il23"), "Gethit", "Idle", SubResource("AnimationNodeStateMachineTransition_oqh25")]
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_xyue4"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_gdrff"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_34xf7"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_xu3rm"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_ymxus"), "Idle", "Gethit", SubResource("AnimationNodeStateMachineTransition_e11s8"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_voaoi"), "Gethit", "Death", SubResource("AnimationNodeStateMachineTransition_ahb05"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_ednpx"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_5crpc"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_2mefs"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_8hucx"), "Walk", "Gethit", SubResource("AnimationNodeStateMachineTransition_eoevc"), "Gethit", "Attack", SubResource("AnimationNodeStateMachineTransition_ecvva"), "Attack", "Gethit", SubResource("AnimationNodeStateMachineTransition_8il23"), "Gethit", "Idle", SubResource("AnimationNodeStateMachineTransition_oqh25"), "Attack", "Attack 2", SubResource("AnimationNodeStateMachineTransition_sqcbj"), "Attack 2", "Attack", SubResource("AnimationNodeStateMachineTransition_2k0fv")]
 graph_offset = Vector2(-28, -80.9949)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
@@ -680,6 +697,12 @@ script = ExtResource("8_oqh25")
 
 [node name="WormEnemyStatePatrol" type="Node" parent="StateMachine"]
 script = ExtResource("9_w2agj")
+
+[node name="WormEnemyStateChase" type="Node" parent="StateMachine"]
+script = ExtResource("10_0mtc6")
+
+[node name="WormEnemyStateAttack" type="Node" parent="StateMachine"]
+script = ExtResource("11_xyue4")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_sqcbj")
