@@ -48,17 +48,19 @@ func initialize_health():
 	health_stats.initialize()
 #
 func change_sprite_visibility(sprite_name: String) -> void:
- #Lista de todos los sprites disponibles
+	# Lista de todos los sprites disponibles
 	var sprites = ["SpriteIdle", "SpriteWalk", "SpriteAttack", "SpriteHit", "SpriteDeath"]
+	
 	# Ocultar todos los sprites primero
-	for sprite in sprites:
-		if has_node(sprite):
-			get_node(sprite).visible = false
-	# Mostrar solo el sprite solicitado
-		if has_node(sprite_name):
-			get_node(sprite_name).visible = true
-		else:
-			push_error("Sprite '" + sprite_name + "' no encontrado")
+	for sprite_node in sprites:
+		if has_node(sprite_node):
+			get_node(sprite_node).visible = false
+	
+	# Mostrar solo el sprite solicitado (FUERA del bucle)
+	if has_node(sprite_name):
+		get_node(sprite_name).visible = true
+	else:
+		push_error("Sprite '" + sprite_name + "' no encontrado")
 
 func _physics_process(delta: float) -> void:
 	pass

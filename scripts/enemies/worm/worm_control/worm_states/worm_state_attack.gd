@@ -10,11 +10,21 @@ func start():
 	timer = 0.0
 	
 	# Usar las funciones centralizadas para encontrar al jugador y orientarse
-a 	var player = worm.detect_player()
+	var player = detect_player()
 	if player:
 		# Determinar dirección hacia el jugador
 		var direction = 1 if player.global_position.x > worm.global_position.x else -1
 		worm.set_facing_direction(direction)
+		
+func end():
+	# Resetear manualmente las condiciones de animación cuando salimos del estado
+	worm.animation_tree.set("parameters/conditions/Attack", false)
+	
+	# Asegurarse de que animation_started está resetado para el siguiente estado
+	animation_started = false
+	
+	# Llamar al método de la clase base
+	super.end()
 
 func physics_update(delta: float): 
 	super.physics_update(delta)
@@ -31,6 +41,7 @@ func physics_update(delta: float):
 	timer += delta
 	if timer >= attack_duration:
 		# Volver a estado de patrulla cuando termine el ataque
+		animation_started = false
 		state_machine.change_to("WormEnemyStatePatrol")
 		
 func detect_player(detection_range: float = 150.0):
@@ -48,24 +59,3 @@ func is_in_attack_range(player, attack_range: float = 40.0):
 		var distance = worm.global_position.distance_to(player.global_position)
 		return distance < attack_range
 	return false
-	
-func chase_player(player, chase_speed: float = 50.0):
-	pass
-	#if player:
-		## Determinar dirección hacia el jugador
-		#var player_direction = 1 
-		#if player.global_position.x > global_position.x else -1
-		#
-		## Voltear sprite según dirección
-		#worm.set_facing_direction(player_direction)
-		#
-		## Comprobar si hay suelo adelante antes de moverse
-		#if worm.check_floor_ahead(player_direction):
-			## Mover hacia el jugador
-			#velocity.x = player_direction * chase_speed
-			#return true
-		#else:
-			## Si no hay suelo, detener movimiento
-			#velocity.x = 0
-			#return false
-	#return false

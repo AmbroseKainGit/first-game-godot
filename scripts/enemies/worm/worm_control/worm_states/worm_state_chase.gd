@@ -2,6 +2,7 @@ extends WormStateGravityBase
 
 var chase_speed = worm.movement_stats.CHASE_SPEED 
 var chase_timer = worm.movement_stats.CHASE_TIME
+var attack_range = worm.movement_stats.ATTACK_RANGE
 var animation_started = false
 var timer = 0.0
 var direction = 0
@@ -21,18 +22,19 @@ func start():
 	animation_started = false
 	
 func physics_update(delta: float):	
-	super.physics_update(delta)		
-		 
+	super.physics_update(delta)
 	if not animation_started:
 		worm.play_animation(worm.animations.WALK)
-		animation_started = true
+		animation_started = true	
 	var player = detect_player()
-	if player:
-		chase(delta, player)		
-	# Cambiar a estado de patrulla cuando el temporizador alcance el tiempo definido
-	
-	if timer >= chase_timer:
+	if player and is_in_attack_range(player):		
+		state_machine.change_to(worm.states.Attack)	
+	elif timer >= chase_timer:
 		state_machine.change_to(worm.states.Idle)
+	elif player:
+		chase(delta, player)
+	else: 
+		timer += delta
 		
 func chase(delta, player):
 	# Actualizar temporizador
@@ -62,3 +64,7 @@ func detect_player(detection_range: float = 150.0):
 		if distance < detection_range:
 			return player
 	return null	
+	
+func is_in_attack_range(player):
+	var distance = worm.global_position.distance_to(player.global_position)
+	return distance < attack_range
