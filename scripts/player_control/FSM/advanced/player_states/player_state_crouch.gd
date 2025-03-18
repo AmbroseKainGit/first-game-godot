@@ -1,7 +1,9 @@
 extends PlayerStateGravityBase
 
+func start():
+	player.change_sprite_visibility(player.animations.CROUCH)
+
 func physics_update(delta: float): 
-	player.change_visibility_crouch(true)
 	# Horizontal movement
 	player.velocity = Vector2.ZERO
 

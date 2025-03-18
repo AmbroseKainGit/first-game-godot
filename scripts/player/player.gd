@@ -17,6 +17,8 @@ var movement_stats:CharacterMovementStats = CharacterMovementStats.new()
 var attack_stats:CharacterAttacktStats = CharacterAttacktStats.new()
 var states:PlayerStatesNames = PlayerStatesNames.new()
 var animations:PlayerAnimationNames = PlayerAnimationNames.new()
+var sprites:CharacterSpriteNames = CharacterSpriteNames.new()
+var sprite_manager: SpriteVisibilityManager
 
 #region Animations Dict
 var animation_mapping = {
@@ -37,19 +39,10 @@ func _ready():
 	initialize_health()
 	
 	call_deferred("initialize_animations")
+	sprite_manager = SpriteVisibilityManager.new(self, sprites.sprite_list)
 
-	
-func change_visibility_crouch(state: bool):
-	# Toggle visibility
-	crouched_sprite.visible = state
-	sprite.visible = !state
-	basic_attack_sprite.visible = false
-	
-func change_visibility_attack(state: bool):
-	# Toggle visibility
-	basic_attack_sprite.visible = state	
-	crouched_sprite.visible = false
-	sprite.visible = !state
+func change_sprite_visibility(sprite_name: String) -> void:
+	sprite_manager.change_sprite_visibility(sprite_name)
 	
 func initialize_animations():
 	# Initialize animation controller with all animations
