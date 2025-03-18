@@ -1,5 +1,6 @@
 # animation_types.gd
 class_name AnimationTypes
+extends Node
 
 enum Type {
 	IDLE,

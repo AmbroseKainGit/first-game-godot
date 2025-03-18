@@ -3,9 +3,9 @@ extends PlayerStateGravityBase
 func start():
 	player.change_sprite_visibility(player.animations.IDLE)
 
-func physics_update(delta: float): 
+func physics_update(delta: float):
 	player.play_animation(player.animations.IDLE)
-	player.velocity.x = 0
+	player.velocity = Vector2.ZERO
 	if not player.is_on_floor() and player.velocity.y > 0:
 		state_machine.change_to(player.states.Falling)
 	

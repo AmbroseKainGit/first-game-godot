@@ -11,14 +11,16 @@ config_version=5
 [application]
 
 config/name="First Game"
-run/main_scene="res://scenes/game.tscn"
+run/main_scene="uid://w5ja0ns2joue"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Music="*res://scenes/music.tscn"
+SceneTransition="*res://scenes/UI/scene_transition.tscn"
 AnimationTypesGlobal="*res://scripts/core/common/animation_types_global.gd"
+GamePauser="*res://scripts/core/common/game_pauser.gd"
 
 [input]
 

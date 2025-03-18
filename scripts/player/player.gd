@@ -1,10 +1,9 @@
 class_name Player
 extends CharacterBody2D
 
-@onready var sprite: Sprite2D = $Sprite2D
 @onready var animation_tree: AnimationTree = $AnimationTree
-@onready var crouched_sprite: Sprite2D = $CrouchedSprite
-@onready var basic_attack_sprite: Sprite2D = $BasicAttackSprite
+@onready var player_sprites: Node = $PlayerSprites
+
 
 var coyote_time = 0.2
 var coyote_timer = 0.0
@@ -39,7 +38,7 @@ func _ready():
 	initialize_health()
 	
 	call_deferred("initialize_animations")
-	sprite_manager = SpriteVisibilityManager.new(self, sprites.sprite_list)
+	sprite_manager = SpriteVisibilityManager.new(sprites.sprite_list, player_sprites)
 
 func change_sprite_visibility(sprite_name: String) -> void:
 	sprite_manager.change_sprite_visibility(sprite_name)
@@ -62,14 +61,21 @@ func initialize_health():
 
 func set_facting_direction(x:float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
-	if direction > 0:
-		sprite.scale.x = 1
-		crouched_sprite.scale.x = 1
-		basic_attack_sprite.scale.x = 1
-	elif direction < 0:
-		sprite.scale.x = -1
-		crouched_sprite.scale.x = -1
-		basic_attack_sprite.scale.x = -1
+	
+	if direction == 0:
+		return  # No direction input, no need to change scaling
+	
+	var scale_x = 1 if direction > 0 else -1
+	
+	 # Apply scale to all Sprite2D nodes in the PlayerSprites hierarchy
+	_set_sprite_scale_recursive(player_sprites, scale_x)
+
+func _set_sprite_scale_recursive(node: Node, scale_x: float) -> void:
+	if node is Sprite2D:
+		node.scale.x = scale_x
+	
+	for child in node.get_children():
+		_set_sprite_scale_recursive(child, scale_x)
 
 func update_coyote_time(delta: float) ->void:
 	# Update was_on_floor at the beginning of physics processing
@@ -96,6 +102,7 @@ func play_animation(animation_name: String):
 	anim_controller.play(animation_name)
 	
 func _input(event):
+	
 	# Test damage with H key
 	if event is InputEventKey and event.keycode == KEY_H and event.pressed and not event.echo:
 		print("Taking damage")
