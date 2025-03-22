@@ -12,7 +12,7 @@ func start():
 	timer = 0.0
 	
 	# Usar las funciones centralizadas para encontrar al jugador y orientarse
-	var player = detect_player()
+	var player = worm.detect_player()
 	if player:
 		# Determinar dirección hacia el jugador
 		var direction = 1 if player.global_position.x > worm.global_position.x else -1
@@ -46,9 +46,9 @@ func physics_update(delta: float):
 		animation_started = false
 		
 		# Comprobar si hay jugador cerca y decidir a qué estado ir
-		var player = detect_player()
+		var player = worm.detect_player()
 		if player:
-			if is_in_attack_range(player):
+			if worm.is_in_attack_range(player):
 				# Si está en rango de ataque, atacar de nuevo
 				state_machine.change_to(worm.states.Attack)
 			else:
@@ -58,18 +58,3 @@ func physics_update(delta: float):
 			# Si no hay jugador cerca, volver a patrullar
 			state_machine.change_to(worm.states.Patrol)
 		
-func detect_player(detection_range: float = 150.0):
-	# Buscar al jugador en el grupo "player"
-	var players = get_tree().get_nodes_in_group("player")
-	if players.size() > 0:
-		var player = players[0]
-		var distance = worm.global_position.distance_to(player.global_position)
-		if distance < detection_range:
-			return player
-	return null
-	
-func is_in_attack_range(player):
-	if player:
-		var distance = worm.global_position.distance_to(player.global_position)
-		return distance < attack_range
-	return false

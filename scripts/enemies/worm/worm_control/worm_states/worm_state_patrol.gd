@@ -20,7 +20,7 @@ func start():
 		direction = 1 if randf() > 0.5 else -1
 		worm.facing_direction = direction
 		
-	worm.sprite_walk.flip_h = (direction < 0)
+	worm.set_facing_direction(direction)
 	animation_started = false
 	
 	
@@ -31,8 +31,8 @@ func physics_update(delta: float):
 	if not animation_started:
 		worm.play_animation(worm.animations.WALK)
 		animation_started = true
-	var player = detect_player()
-	if player and is_in_attack_range(player):		
+	var player = worm.detect_player()
+	if player and worm.is_in_attack_range(player):		
 		state_machine.change_to(worm.states.Attack)
 	elif player:
 		state_machine.change_to(worm.states.Chase)
@@ -53,23 +53,23 @@ func patrol(delta):
 	
 	# Mover al enemigo
 	worm.velocity.x = direction * patrol_speed
-	
-func detect_player():
-	# Buscar al jugador en el grupo "player"
-	var players = worm.get_tree().get_nodes_in_group("player")
-	if players.size() > 0:
-		var player = players[0]
-		var distance = worm.global_position.distance_to(player.global_position)
-		if distance < vision_range:
-			return player
-	return null
 
 func change_direction():
 	direction *= -1  # Invertir dirección
 	patrol_time = randi_range(1, 5)
 	worm.facing_direction = direction
-	worm.sprite_walk.flip_h = (direction < 0)  # Voltear sprite según dirección
+	worm.set_facing_direction(direction)
 	
-func is_in_attack_range(player):
-	var distance = worm.global_position.distance_to(player.global_position)
-	return distance < attack_range	
+#func detect_player():
+	## Buscar al jugador en el grupo "player"
+	#var players = worm.get_tree().get_nodes_in_group("player")
+	#if players.size() > 0:
+		#var player = players[0]
+		#var distance = worm.global_position.distance_to(player.global_position)
+		#if distance < vision_range:
+			#return player
+	#return null
+	#
+#func is_in_attack_range(player):
+	#var distance = worm.global_position.distance_to(player.global_position)
+	#return distance < attack_range	
